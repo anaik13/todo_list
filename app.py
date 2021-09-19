@@ -1,8 +1,10 @@
 from main_class import main_class as mc
 
 
-note = mc.ToDoList()
+note = mc.Action()
 event = mc.Event()
+
+
 
 
 while True:

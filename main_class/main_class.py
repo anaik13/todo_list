@@ -2,8 +2,11 @@ import pandas as pd
 import datetime
 from main_class import auxiliary_functions as af
 from main_class import auxiliary_functions_event as afe
-from logs import logs as l
+from decorators import decorators as d
+from logs import main_logs as l
 
+# Logger
+logger = l.configure_logger()
 
 class Action():
 
@@ -11,12 +14,12 @@ class Action():
         dir = r'C:\Users\anaik\Desktop\Praca_2021\BitPeak\practise_python_1\todo_list\\'
         self.dir = dir
 
-    @l.add_action_status
+    @d.add_action_status
     def write_notes(self, df):
         df.to_csv(self.dir + 'notes.csv')
 
 
-    @l.add_action_status
+    @d.add_action_status
     def show_all_notes(self):
         df = self.load_notes()
         print(df)
@@ -35,7 +38,6 @@ class Action():
         return new_note_df
 
 
-    @l.add_action_status
     def save_new_note(self):
         df = self.load_notes()
         new_note_df = self.create_new_note()
@@ -44,9 +46,10 @@ class Action():
         df = df.set_index('idx')
         self.write_notes(df)
         print('------- New note saved. -------')
+        logger.info('Note added')
+        # logger.warning('Note added')
 
 
-    @l.add_action_status
     def delete_note(self):
         df = self.load_notes()
         print(df)
@@ -54,15 +57,15 @@ class Action():
         df = df.drop(index=idx_to_delete)
         self.write_notes(df)
         print('------- Specified note was removed. -------')
+        logger.info('Note removed')
 
 
-    @l.add_action_status
     def delete_all_notes(self):
         self.write_notes(pd.DataFrame(columns=['added_date', 'date', 'note', 'importance', 'status', 'place']))
         print('------- There are NO saved notes. -------')
+        logger.warning('Notes removed')
 
 
-    @l.add_action_status
     def update_note(self):
 
         idx_to_update = self.which_note()
@@ -82,9 +85,9 @@ class Action():
                                                                     else df.loc[idx_to_update, 'place']
                             ]
         self.write_notes(df)
+        logger.info('Note updated')
 
 
-    @l.add_action_status
     def update_field(self):
 
         idx_to_update = self.which_note()
@@ -95,7 +98,7 @@ class Action():
         val_to_update = input('For what {}:'.format(col_to_update))
         df.loc[idx_to_update, col_to_update] = val_to_update
         self.write_notes(df)
-
+        logger.info('Note updated')
 
     # Auxiliary functions
 
@@ -135,3 +138,7 @@ class Event(Action):
     def which_col_to_update(self):
         return afe.which_col_to_update()
 
+
+
+# TODO:
+# - dodac logds for exceptions

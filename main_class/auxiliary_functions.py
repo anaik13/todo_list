@@ -12,6 +12,7 @@ def ask_about_note_update():
     updated_note['updated_note_status'] = input('Write updated note status:')
     updated_note['updated_note_place'] = None
     return updated_note
+    logger.info('Log fro, auxiliary_functions.py')
 
 
 def which_note(self):
