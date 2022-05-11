@@ -17,9 +17,9 @@ while True:
     elif next_action == 'a':
         action_kind = input('What kind of action do you want to add [Options: event, others]?')
         if action_kind == 'e':
-            event.save_new_note()
+            event.save_new_note(action_kind)
         elif action_kind == 'o':
-            note.save_new_note()
+            note.save_new_note(action_kind)
 
     elif next_action == 'r':
         note.delete_note()
@@ -30,27 +30,25 @@ while True:
     elif next_action == 'u':
         action_kind = input('What kind of action do you want to update [Options: event, others]?')
         if action_kind == 'e':
-            event.update_field()
+            event.update_field(action_kind)
         elif action_kind == 'o':
-            note.update_field()
+            note.update_field(action_kind)
+        else:
+            print('You specified uncorrect kind of action.')
+
 
     elif next_action == 'ua':
         action_kind = input('What kind of action do you want to update [Options: event, others]?')
         if action_kind == 'e':
-            event.update_note()
+            event.update_note(action_kind)
         elif action_kind == 'o':
-            note.update_note()
-
-    # else:
-    #     print('You specify uncorrect kind of action.') # ao !!!
+            note.update_note(action_kind)
+        else:
+            print('You specified uncorrect kind of action.')
 
     if_continue = input('Do you want to continue [Options: y, n]:')
-    if if_continue == 'n':
+    if not if_continue == 'y':
         break
 
-# def main():
-#
-# if __name__ == '__main__':
-#     main()
 
 

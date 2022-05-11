@@ -1,7 +1,7 @@
 import pandas as pd
 
 def load_notes(self):
-    df = pd.read_csv(self.dir + 'notes.csv', index_col=0)
+    df = pd.read_csv(self.dir + '\\' + 'notes.csv', index_col=0)
     return df
 
 def ask_about_note_update():
@@ -12,11 +12,12 @@ def ask_about_note_update():
     updated_note['updated_note_status'] = input('Write updated note status:')
     updated_note['updated_note_place'] = None
     return updated_note
-    logger.info('Log fro, auxiliary_functions.py')
+    logger.info('Log from auxiliary_functions.py')  # TODO
 
 
-def which_note(self):
+def which_note(self, action_kind):
     df = self.load_notes()
+    df = df.loc[df.type==action_kind,:]
     print(df)
     idx_to_update = int(input('Specify which note (look at idx column):'))
     return idx_to_update
