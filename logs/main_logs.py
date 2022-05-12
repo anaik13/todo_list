@@ -1,5 +1,6 @@
 import logging
 
+
 def configure_logger():
 
     logger = logging.getLogger(__name__)

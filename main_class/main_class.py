@@ -1,12 +1,14 @@
 import pandas as pd
 import datetime
-from main_class import auxiliary_functions as af
-from main_class import auxiliary_functions_event as afe
 from decorators import decorators as d
 from logs import main_logs as l
+from main_class import auxiliary_functions as af
+from main_class import auxiliary_functions_event as afe
+
 
 # Logger
 logger = l.configure_logger()
+
 
 class Action():
 
@@ -20,12 +22,10 @@ class Action():
     def write_notes(self, df):
         df.to_csv(self.dir + '\\' + 'notes.csv')
 
-
     @d.add_action_status
     def show_all_notes(self):
         df = self.load_notes()
         print(df)
-
 
     def create_new_note(self, action_kind):
         new_note = input('Write new note:')
@@ -40,7 +40,6 @@ class Action():
         new_note_df = new_note_df[['added_date', 'date', 'type', 'note', 'importance', 'status', 'place']]
         return new_note_df
 
-
     def save_new_note(self, action_kind):
         df = self.load_notes()
         new_note_df = self.create_new_note(action_kind)
@@ -52,7 +51,6 @@ class Action():
         logger.info('Note added')
         # logger.warning('Note added')
 
-
     def delete_note(self):
         df = self.load_notes()
         print(df)
@@ -62,12 +60,10 @@ class Action():
         print('------- Specified note was removed. -------')
         logger.info('Note removed')
 
-
     def delete_all_notes(self):
         self.write_notes(pd.DataFrame(columns=['added_date', 'date', 'type', 'note', 'importance', 'status', 'place']))
         print('------- There are NO saved notes. -------')
         logger.warning('Notes removed')
-
 
     def update_note(self, action_kind):
 
@@ -75,21 +71,17 @@ class Action():
         updated_note = self.ask_about_note_update()
 
         df = self.load_notes()
-        df.loc[idx_to_update, :] = [df.loc[idx_to_update, 'added_date'],
-                             updated_note['updated_note_date'] if updated_note['updated_note_date']
-                                                                else df.loc[idx_to_update, 'date'],
-                             updated_note['updated_note'] if updated_note['updated_note']
-                                                            else df.loc[idx_to_update, 'note'],
-                             updated_note['updated_note_importance'] if updated_note['updated_note_importance']
-                                                                        else df.loc[idx_to_update, 'importance'],
-                             updated_note['updated_note_status'] if updated_note['updated_note_status']
-                                                                    else df.loc[idx_to_update, 'status'],
-                             updated_note['updated_note_place'] if updated_note['updated_note_place']
-                                                                    else df.loc[idx_to_update, 'place']
-                            ]
+        df.loc[idx_to_update, :] = [
+            df.loc[idx_to_update, 'added_date'],
+            updated_note['updated_note_date'] if updated_note['updated_note_date'] else df.loc[idx_to_update, 'date'],
+            df.loc[idx_to_update, 'type'],
+            updated_note['updated_note'] if updated_note['updated_note'] else df.loc[idx_to_update, 'note'],
+            updated_note['updated_note_importance'] if updated_note['updated_note_importance'] else df.loc[idx_to_update, 'importance'],
+            updated_note['updated_note_status'] if updated_note['updated_note_status'] else df.loc[idx_to_update, 'status'],
+            updated_note['updated_note_place'] if updated_note['updated_note_place'] else df.loc[idx_to_update, 'place']
+        ]
         self.write_notes(df)
         logger.info('Note updated')
-
 
     def update_field(self, action_kind):
 
@@ -107,30 +99,22 @@ class Action():
         self.write_notes(df)
         logger.info('Note updated')
 
-    # Auxiliary functions
-
-
     def load_notes(self):
         return af.load_notes(self)
-
 
     def ask_about_note_update(self):
         return af.ask_about_note_update()
 
-
     def which_note(self, action_kind):
         return af.which_note(self, action_kind)
-
 
     def which_col_to_update(self):
         return af.which_col_to_update()
 
 
-
 class Event(Action):
 
     COLS_AVAILABLE_FOR_EVENT_UPDATE = ['status', 'importance', 'place']
-
 
     def update_field(self, action_kind):
 
@@ -148,24 +132,14 @@ class Event(Action):
         self.write_notes(df)
         logger.info('Note updated')
 
-
     def create_new_note(self, action_kind):
         new_note_df = super().create_new_note(action_kind)
         new_note_place = input('Write place of new note:')
         new_note_df['place'] = new_note_place
         return new_note_df
 
-
-    # Auxiliary functions
-
     def ask_about_note_update(self):
         return afe.ask_about_note_update()
 
-
     def which_col_to_update(self):
         return afe.which_col_to_update()
-
-
-
-# TODO:
-# - dodac loads for exceptions

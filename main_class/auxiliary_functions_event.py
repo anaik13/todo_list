@@ -7,7 +7,6 @@ def ask_about_note_update():
     updated_note['updated_note_place'] = input('Write updated note place:')
     return updated_note
 
-
 def which_col_to_update():
     col_to_update = input('Specify which column to update (Options: status, importance, place):')
     return col_to_update

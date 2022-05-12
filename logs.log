@@ -44,3 +44,13 @@
 2022-05-11 13:52:57,336 - logs.main_logs - INFO - Note added
 2022-05-11 13:53:12,333 - logs.main_logs - INFO - Note added
 2022-05-11 13:59:29,574 - logs.main_logs - INFO - Note updated
+2022-05-12 10:03:14,604 - logs.main_logs - INFO - Note removed
+2022-05-12 10:04:40,905 - logs.main_logs - WARNING - Notes removed
+2022-05-12 10:05:30,955 - logs.main_logs - INFO - Note added
+2022-05-12 10:06:41,926 - logs.main_logs - INFO - Note added
+2022-05-12 10:10:06,805 - logs.main_logs - WARNING - Notes removed
+2022-05-12 10:10:45,529 - logs.main_logs - INFO - Note added
+2022-05-12 10:11:13,111 - logs.main_logs - INFO - Note added
+2022-05-12 10:11:49,566 - logs.main_logs - INFO - Note updated
+2022-05-12 10:12:57,494 - logs.main_logs - INFO - Note updated
+2022-05-12 10:14:45,446 - logs.main_logs - INFO - Note updated
